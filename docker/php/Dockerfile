@@ -7,6 +7,10 @@ WORKDIR /var/www
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
+COPY /ep.sh /ep.sh
+COPY /init.sh /init.sh
+RUN chmod +x /ep.sh
+
 RUN apt-get -qq update && apt-get -qq install -y \
     build-essential \
     libpng-dev \
@@ -44,5 +48,8 @@ COPY --chown=www:www . /var/www
 # Change current user to www
 USER www
 
-EXPOSE 9000
 CMD ["php-fpm"]
+
+ENTRYPOINT ["/ep.sh"]
+
+EXPOSE 9000
