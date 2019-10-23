@@ -12,7 +12,7 @@ services:
       - ./api:/var/www
     environment:
       - "DB_PORT=3306"
-      - "DB_HOST=database"
+      - "DB_HOST=mysql"
     networks:
       - mynet
 
