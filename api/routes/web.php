@@ -15,3 +15,6 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('job-forms', 'JobFormController');
+Route::resource('filled-forms', 'FilledJobFormController')->except(['create']);
