@@ -36,4 +36,19 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function jobForms()
+    {
+        return $this->hasMany(JobForm::class);
+    }
+
+    public function isJobFormOwner($id)
+    {
+        return in_array($id, $this->jobForms()->pluck('id')->all());
+    }
+
+    public function forms()
+    {
+        return $this->belongsToMany(User::class,'filled_job_form_user','user_id', 'filled_job_form_id');
+    }
 }
