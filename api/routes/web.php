@@ -10,16 +10,19 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/posts', 'PostController');
 
+Route::get('/material','MaterialController@index')->name('material');
+
 Route::resource('job-forms', 'JobFormController');
 Route::resource('filled-forms', 'FilledJobFormController')->except(['create']);
+
 Route::get('/user/{id}/profile', 'UserController@show')->name('user.profile');
 Route::get('/user/{id}/edit', 'UserController@edit')->name('user.edit');
 Route::get('/user/{id}/update', 'UserController@update')->name('user.update');
