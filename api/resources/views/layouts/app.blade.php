@@ -90,9 +90,9 @@
                                 </a>
                                 <a class="dropdown-item" href="{{ route('posts.index') }}">Manage Posts<span class="sr-only">(user posts)</span></a>
                                 <a class="dropdown-item" href="{{ route('filled-forms.index') }}">Filled job forms<span class="sr-only">(filled job forms)</span></a>
+                                <a class="dropdown-item" href="{{ route('settings.index') }}">Settings</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
-
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
