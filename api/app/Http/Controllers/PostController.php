@@ -14,9 +14,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-
-        return view('posts.index')->withPosts($posts);
+        return view('posts.index', [
+            'posts' => Post::all(),
+         ]);
     }
 
     /**
@@ -48,15 +48,7 @@ class PostController extends Controller
         $post = new Post;
         $post->name = $request->name;
         $post->content = $request->content;
-        if($request->input('job_form'))
-        {
-            $post->is_job =  1;
-        }
-        else
-        {
-            $post->is_job =  0;
-        }
-
+        $post->is_job = $request->input('job_form') ? 1 : 0;
         $post->save();
 
         return redirect()->route('posts.show', $post->id);
@@ -70,8 +62,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
-        return view('posts.show')->withPost($post);
+        return view('posts.show', [
+            'post' =>  Post::find($id),
+        ]);
     }
 
     /**
@@ -82,9 +75,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);
-        
-        return view('posts.edit')->withPost($post);
+        return view('posts.edit', [
+            'post' =>  Post::find($id),
+        ]);
     }
 
     /**
@@ -106,15 +99,7 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->name = $request->input('name');
         $post->content = $request->input('content');
-
-        if($request->input('job_form'))
-        {
-            $post->is_job =  1;
-        }
-        else
-        {
-            $post->is_job =  0;
-        }
+        $post->is_job = $request->input('job_form') ? 1 : 0;
        
         $post->save();
 
@@ -129,7 +114,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post->delete();
 
         return redirect()->route('posts.index');

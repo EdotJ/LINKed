@@ -35,9 +35,9 @@
             <span>
                 <td><a href="{{route('posts.show', $post->id)}}" class="btn btn-outline-primary btn-sm">View</a></td>
                 <td><a href="{{route('posts.edit', $post->id)}}" class="btn btn-outline-secondary btn-sm">Edit</a></td>
-            </span>
-            </tr>
-            @endforeach
+            </span>   
+        </li>
+        @endforeach
     </ul>
 </div>
 @endsection
