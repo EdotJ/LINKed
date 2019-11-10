@@ -16957,6 +16957,7 @@ a.text-dark:focus {
   }
 }
 
+<<<<<<< HEAD
 .profile-name {
   font-size: 2rem;
 }
@@ -16972,5 +16973,66 @@ a.text-dark:focus {
 
 .profile-label {
   font-size: 1rem;
+=======
+ul.card-header-tabs a.nav-link {
+  color: #495057;
+}
+
+ul.card-header-tabs a.active.nav-link {
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.learning-material {
+  table-layout: fixed;
+  margin-top: 1rem;
+}
+
+.learning-material .le-mat1 {
+  width: 20%;
+}
+
+.learning-material .le-mat2 {
+  width: 18%;
+}
+
+.learning-material .le-mat3 {
+  width: 21%;
+}
+
+.learning-material .le-mat4 {
+  width: 18%;
+}
+
+.learning-material .le-mat5 {
+  width: 23%;
+  text-align: right;
+}
+
+.learning-material .le-mat-c1 {
+  width: 30%;
+  padding: 0.5rem;
+}
+
+.learning-material .le-mat-c2 {
+  width: 70%;
+  text-align: left;
+}
+
+#material-upload form {
+  text-align: right;
+}
+
+.le-mat-full {
+  width: 100%;
+}
+
+.le-mat-t1 {
+  width: 80%;
+}
+
+.le-mat-t2 {
+  width: 15%;
+>>>>>>> created material sharing part
 }
 
