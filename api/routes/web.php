@@ -34,3 +34,6 @@ Route::post('/admin/roles/{id}/block', 'Admin\RoleController@disable')->name('ro
 Route::get('/admin/groups', 'Admin\GroupController@index')->name('groups.index');
 Route::get('/admin/groups/{id}/edit', 'Admin\GroupController@edit')->name('groups.edit');
 Route::get('/admin/groups/create', 'Admin\GroupController@create')->name('groups.create');
+
+Route::get('user/settings', 'SettingsController@index')->name('settings.index');
+Route::POST('user/disable', 'SettingsController@destroy')->name('settings.disable');
