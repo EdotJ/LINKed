@@ -22,6 +22,7 @@ Route::get('/material','MaterialController@index')->name('material');
 
 Route::resource('job-forms', 'JobFormController');
 Route::resource('filled-forms', 'FilledJobFormController')->except(['create']);
+Route::get('/job-forms/{job_form}/pdf', 'JobFormController@getPdf')->name('job-forms.pdf');
 
 Route::get('/user/{id}/profile', 'UserController@show')->name('user.profile');
 Route::get('/user/{id}/edit', 'UserController@edit')->name('user.edit');
@@ -36,4 +37,4 @@ Route::get('/admin/groups/{id}/edit', 'Admin\GroupController@edit')->name('group
 Route::get('/admin/groups/create', 'Admin\GroupController@create')->name('groups.create');
 
 Route::get('user/settings', 'SettingsController@index')->name('settings.index');
-Route::POST('user/disable', 'SettingsController@destroy')->name('settings.disable');
+Route::post('user/disable', 'SettingsController@destroy')->name('settings.disable');
