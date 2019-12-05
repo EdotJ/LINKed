@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -18,7 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'description', 'birthday'
+        'name', 'email', 'password', 'description', 'birthday', 'is_blocked', 'is_deleted'
     ];
 
     /**
@@ -47,6 +49,51 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function isJobFormOwner($id)
     {
         return in_array($id, $this->jobForms()->pluck('id')->all());
+    }
+
+    public function hasRole(String $role)
+    {
+        return $this->role()->first()->shorthand_code == $role;
+    }
+
+    public function isBlocked()
+    {
+        return $this->is_blocked == 1;
+    }
+
+    public function isDisabled()
+    {
+        return $this->is_deleted == 1;
+    }
+
+    public function scopeStudents($query)
+    {
+        return $query->where('role_id', 1);
+    }
+
+    public function scopeAdmins($query)
+    {
+        return $query->where('role_id', 2);
+    }
+
+    public function scopeLecturers($query)
+    {
+        return $query->where('role_id', 3);
+    }
+
+    public function scopeDelegates($query)
+    {
+        return $query->where('role_id', 4);
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function academicGroup(): BelongsTo
+    {
+        return $this->belongsTo(AcademicGroup::class, 'academic_group');
     }
 
     public function forms()

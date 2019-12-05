@@ -31,6 +31,32 @@
                         @slot('type') text @endslot
                         interests
                     @endcomponent
+                    @if($user->hasRole("STD"))
+                        @component('user.partials.profile_field')
+                            @slot('title') Study Programme @endslot
+                            @slot('type') text @endslot
+                            study_programme
+                        @endcomponent
+                        @component('user.partials.profile_field')
+                            @slot('title') Study Year @endslot
+                            @slot('type') number @endslot
+                            year
+                        @endcomponent
+                    @endif
+                    @if($user->hasRole("CDE") || $user->hasRole("LEC"))
+                        @if($user->hasRole("CDE"))
+                            @component('user.partials.profile_field')
+                                @slot('title') Company @endslot
+                                @slot('type') text @endslot
+                                company
+                            @endcomponent
+                        @endif
+                        @component('user.partials.profile_field')
+                            @slot('title') Title @endslot
+                            @slot('type') text @endslot
+                            title
+                        @endcomponent
+                    @endif
                     <div class="form-group row">
                         <label for="description"
                                class="col-md-4 col-form-label text-md-right">Description</label>

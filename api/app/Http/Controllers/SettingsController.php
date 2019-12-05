@@ -80,6 +80,9 @@ class SettingsController extends Controller
      */
     public function destroy()
     {
-        //
+        $user = Auth::user();
+        $user->is_deleted = 1;
+        $user->save();
+        Auth::logout();
     }
 }

@@ -3,7 +3,7 @@
            class="col-md-4 col-form-label text-md-right">{{ $title }}</label>
 
     <div class="col-md-6">
-        <input id="{{$slot}}" type="{{$type}}"
+        <input id="{{$slot}}" type="{{$type}}" min="1" step="1" max="6"
                class="form-control @error($slot) is-invalid @enderror"
                name="{{$slot}}"
                value="{{ empty(old($slot->__toString())) ? Auth::user()->$slot : old($slot->__toString())}}"
