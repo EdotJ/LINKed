@@ -49,6 +49,7 @@
                                 </span>
                             @endif
                         @endauth
+                        <a href="{{ route('job-forms.pdf', $form->id) }}" class="btn btn-outline-success" role="button">Print form</a>
                         <a href="{{ route('job-forms.show', $form->id) }}" class="btn btn-outline-primary" role="button">Fill form</a>
                     </span>
                 </li>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\JobForm;
+use PDF;
 use App\Filters\JobFormsFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,7 @@ class JobFormController extends Controller
     {
         $this->middleware('auth');
         $this->columns =  $this->getTableColumns('job_forms')->reject(function ($column) {
-            return in_array($column, ['id','created_at','updated_at', 'name']);
+            return in_array($column, ['id','created_at','updated_at', 'name', 'user_id']);
         });
     }
 
@@ -136,6 +137,25 @@ class JobFormController extends Controller
 
         $jobForm->delete();
         return redirect()->back()->with('success', 'Job form was deleted');
+    }
+
+    /**
+     * Returns job form in pdf format
+     *
+     * @param \App\JobForm $jobForm
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
+    public function getPdf(JobForm $jobForm)
+    {
+        $pdf = PDF::loadView('pdf.job-form',  [
+            'jobFormId' => $jobForm->id,
+            'fields' => collect($jobForm->getAttributes())->except(['created_at','updated_at','user_id','name','id']),
+            'statuses' => DB::table('forms_field_status')->get()->mapWithKeys(function ($value, $key){
+                return [$value->id => $value->status];
+            }),
+        ]);
+        return $pdf->download('job-form.pdf');
     }
 
     /**
