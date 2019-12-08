@@ -12,19 +12,19 @@
             <form class="form-inline d-flex justify-content-between align-items-center">
 
                 <label class="sr-only" for="form_name">Form name</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="form_name" name="form_name" placeholder="Form name">
+                <input type="text" class="form-control mb-2 mr-sm-2" id="form_name" name="form_name" placeholder="Form name" value="{{ request('form_name') }}">
 
                 <label class="sr-only" for="creator">Creator</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="creator" name="creator" placeholder="Creator">
+                <input type="text" class="form-control mb-2 mr-sm-2" id="creator" name="creator" placeholder="Creator" value="{{ request('creator') }}">
 
                 <div class="form-inline d-flex align-items-center">
                     <label class="" for="date_from">Date from</label>
-                    <input type="date" class="form-control ml-3" id="date_from" name="date_from" placeholder="Created after date">
+                    <input type="date" class="form-control ml-3" id="date_from" name="date_from" placeholder="Created after date" value="{{ request('date_from') }}">
                 </div>
 
                 <div class="form-inline d-flex align-items-center">
                     <label class="" for="date_to">Date to</label>
-                    <input type="date" class="form-control ml-3" id="date_to" name="date_to" placeholder="Created before date">
+                    <input type="date" class="form-control ml-3" id="date_to" name="date_to" placeholder="Created before date" value="{{ request('date_to') }}">
                 </div>
                 <button type="submit" class="btn btn-dark btn-block mb-2">Filter</button>
             </form>
@@ -36,7 +36,8 @@
                 <li class="list-group-item mt-2 d-flex justify-content-between align-items-center">
                     <span class="w-50" >
                         <div><b>{{$form->name}}</b></div>
-                        <small> <b>Created by:</b> <span class="font-italic">{{$form->user->name}}</span> </small>
+                        <div><small> <b>Created by:</b> <span class="font-italic">{{$form->user->name}}</span> </small></div>
+                        <small> <b>Last update:</b> <span class="font-italic">{{$form->updated_at}}</span> </small>
                     </span>
                     <span>
                         @auth
