@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\JobForm;
 use PDF;
+use App\Filters\JobFormsFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -32,10 +33,10 @@ class JobFormController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(JobFormsFilter $filters)
     {
         return view('job-form.index',[
-            'forms' => JobForm::with('user')->get(),
+            'forms' => JobForm::filter($filters)->with('user')->get(),
         ]);
     }
 
