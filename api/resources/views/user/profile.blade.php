@@ -54,35 +54,37 @@
                                             @slot('label') Birthday @endslot
                                             {{$user->birthday}}
                                         @endcomponent
-                                        {{-- TODO: ADD IF FOR STUDENT ROLE --}}
-                                        @component('user.partials.profile_column')
-                                            @slot('label') Academic group @endslot
-                                            {{-- TODO: ADD ACADEMIC GROUP --}}
-                                        @endcomponent
+                                        @if($user->hasRole('STD'))
+                                            @component('user.partials.profile_column')
+                                                @slot('label') Academic group @endslot
+                                                {{$user->academicGroup()->first()->shorthand_code}}
+                                            @endcomponent
 
-                                        @component('user.partials.profile_column')
-                                            @slot('label') Year (Course) @endslot
-                                            {{-- TODO: ADD COURSE --}}
-                                        @endcomponent
+                                            @component('user.partials.profile_column')
+                                                @slot('label') Year (Course) @endslot
+                                                {{$user->year}}
+                                            @endcomponent
 
-                                        @component('user.partials.profile_column')
-                                            @slot('label') Study programme @endslot
-                                            {{-- TODO: ADD Study programme --}}
-                                        @endcomponent
-
-                                        @component('user.partials.profile_column')
-                                            @slot('label') Company @endslot
-                                            {{-- TODO: ADD Company --}}
-                                        @endcomponent
-
-                                        @component('user.partials.profile_column')
-                                            @slot('label') Title @endslot
-                                            {{-- TODO: ADD Title for professors / delegates --}}
-                                        @endcomponent
-
+                                            @component('user.partials.profile_column')
+                                                @slot('label') Study programme @endslot
+                                                {{$user->study_programme}}
+                                            @endcomponent
+                                        @endif
+                                        @if($user->hasRole("CDE"))
+                                            @component('user.partials.profile_column')
+                                                @slot('label') Company @endslot
+                                                {{$user->company}}
+                                            @endcomponent
+                                        @endif
+                                        @if($user->hasRole("CDE") || $user->hasRole("LEC"))
+                                            @component('user.partials.profile_column')
+                                                @slot('label') Title @endslot
+                                                {{$user->title}}
+                                            @endcomponent
+                                        @endif
                                         @component('user.partials.profile_column')
                                             @slot('label') Interests @endslot
-                                            {{-- TODO: ADD Interests --}}
+                                            {{$user->interests}}
                                         @endcomponent
                                     </div>
                                 </div>

@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="container">
+    @include('success')
     <div class="row">
         <div class="col">
             <div class="card">
@@ -15,6 +16,7 @@
                             <th>E-mail</th>
                             <th>Suspension status</th>
                             <th>Verification status</th>
+                            <th>Role</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -26,10 +28,11 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->is_blocked ? 'Suspended' : 'Active'}}</td>
                                 <td>{{empty($user->email_verfied_at) ? 'Verified' : 'Not verified'}}</td>
+                                <td>{{$user->role()->first()->name}}</td>
                                 <td>
-                                    <form class="hidden" method="POST" action="{{route('roles.block', $user->id)}}">
+                                    <form class="hidden" method="POST" action="{{route('roles.block', ["user" => $user->id])}}">
                                         @csrf
-                                        <a href="{{route('roles.edit', $user->id)}}" class="btn btn-outline-primary">
+                                        <a href="{{route('roles.edit', ["user" => $user->id])}}" class="btn btn-outline-primary">
                                             Change role
                                         </a>
                                         <button type="submit" class="btn btn-outline-danger">

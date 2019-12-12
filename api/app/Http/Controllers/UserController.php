@@ -82,9 +82,25 @@ class UserController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::user();
+        $user->headline = $request->headline;
+        $user->phone_number = $request->number;
+        $user->birthday = $request->birthday;
+        $user->interests = $request->interests;
+        if ($user->hasRole('STD')) {
+            $user->study_programme = $request->study_programme;
+            $user->year = $request->year;
+        }
+        if ($user->hasRole('CDE') || $user->hasRole('LEC')) {
+            if ($user->hasRole('CDE')) {
+                $user->company = $request->company;
+            }
+            $user->title = $request->title;
+        }
+        $user->save();
+        return redirect(route('user.profile', ['id' => Auth::user()->id]))->with('success', "Successfully updated your profile");
     }
 
     /**

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <form method="POST" class="align-content-center">
+                <form method="POST" class="align-content-center" action="{{route('groups.store')}}">
                     @csrf
                     <div class="form-group row">
                         <label for="group" class="col-md-4 col-form-label text-md-right">Shorthand code</label>
