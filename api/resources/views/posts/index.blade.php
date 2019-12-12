@@ -15,12 +15,14 @@
         <form class="form-inline d-flex justify-content-between align-items-center">
 
             <label class="sr-only" for="post_name">Post name</label>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="post_name" name="post_name"
-                placeholder="Post name">
-            <div class="form-inline d-flex align-items-center">
-                <label class="" for="created_date">Created Date</label>
-                <input type="date" class="form-control ml-3" id="created_date" name="created_date"
-                    placeholder="Created Date">
+            <input type="text" class="form-control mb-2 mr-sm-2" id="post_name" name="post_name" placeholder="Post name" value="{{ request('post_name') }}">
+
+            <div class="form-inline d-flex align-items-right">
+                <label class="" for="date_from">Date from</label>
+                <input type="date" class="form-control ml-2 mr-1" id="date_from" name="date_from" placeholder="Created after date" value="{{ request('date_from') }}">
+            
+                <label class="" for="date_to">Date to</label>
+                <input type="date" class="form-control ml-2" id="date_to" name="date_to" placeholder="Created before date" value="{{ request('date_to') }}">
             </div>
             <button type="submit" class="btn btn-dark btn-block mb-2">Filter</button>
         </form>

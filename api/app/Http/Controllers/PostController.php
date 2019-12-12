@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Filters\PostsFilter;
 
 class PostController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PostsFilter $filters)
     {
         return view('posts.index', [
-            'posts' => Post::all(),
+            'posts' => Post::filter($filters)->get(),
          ]);
     }
 

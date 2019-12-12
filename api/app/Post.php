@@ -2,15 +2,13 @@
 
 namespace App;
 
+use App\Filters\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
+    use Filterable;
+    protected $table = 'posts';
     protected $fillable = [
         'name', 'content', 'is_job'
     ];
