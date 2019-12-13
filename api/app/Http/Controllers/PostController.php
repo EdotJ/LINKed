@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Filters\PostsFilter;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -28,7 +29,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create',[
+            'forms' => DB::table('job_forms')->get(),
+        ]);
     }
 
     /**
@@ -79,6 +82,7 @@ class PostController extends Controller
     {
         return view('posts.edit', [
             'post' =>  Post::find($id),
+            'forms' => DB::table('job_forms')->get(),
         ]);
     }
 
