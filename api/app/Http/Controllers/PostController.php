@@ -63,10 +63,10 @@ class PostController extends Controller
 
         if ($post->is_job){
             $post->form_id = $request->input('job_form');
+            $this -> sendEmail($post);
         }
         $post->user_id = auth()->user()->id;
         $post->save();
-        $this -> sendEmail($post);
 
         return redirect()->route('posts.show', $post->id);
     }
@@ -131,11 +131,10 @@ class PostController extends Controller
         $post->is_job = $request->input('job_form') ? 1 : 0;
         if ($post->is_job){
             $post->form_id = $request->input('job_form');
+            $this -> sendEmail($post);
         }
-        $post->user_id = auth()->user()->id;
-       
+        $post->user_id = auth()->user()->id;   
         $post->save();
-        $this -> sendEmail($post);
 
         return redirect()->route('posts.show', $post->id);
     }

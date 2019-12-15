@@ -59,6 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function isPostOwner($id)
     {
         return in_array($id, $this->posts()->pluck('id')->all());
+    }
 
     public function hasRole(String $role)
     {
