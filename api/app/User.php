@@ -94,6 +94,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function academicGroup(): BelongsTo
     {
         return $this->belongsTo(AcademicGroup::class, 'academic_group');
+
     }
 
     public function forms()
