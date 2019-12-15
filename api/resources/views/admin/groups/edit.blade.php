@@ -8,20 +8,19 @@
                     <label class="col-md-4 col-form-label text-md-right">Current group</label>
 
                     <div class="col-md-6">
-                        <label class="col-form-label">IFF-STUDENTAS</label>
+                        <label class="col-form-label">{{$user->academicGroup()->first()->shorthand_code}}</label>
                     </div>
                 </div>
-                <form method="POST" class="align-content-center">
+                <form method="POST" class="align-content-center" action="{{route('groups.update', ["user" => $user])}}">
                     @csrf
                     <div class="form-group row">
                         <label for="group" class="col-md-4 col-form-label text-md-right">New group</label>
 
                         <div class="col-md-6">
                             <select name="group">
-                                <option>IFF-1</option>
-                                <option>IFF-2</option>
-                                <option>IFF-3</option>
-                                <option>IFF-3</option>
+                                @foreach($groups as $group)
+                                    <option value="{{$group->id}}" @if($user->academic_group == $group->id) selected @endif >{{$group->shorthand_code}}</option>
+                                @endforeach
                             </select>
                             @error('group')
                             <span class="invalid-feedback" role="alert">

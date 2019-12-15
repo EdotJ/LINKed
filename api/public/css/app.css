@@ -16957,7 +16957,6 @@ a.text-dark:focus {
   }
 }
 
-<<<<<<< HEAD
 .profile-name {
   font-size: 2rem;
 }
@@ -16973,7 +16972,12 @@ a.text-dark:focus {
 
 .profile-label {
   font-size: 1rem;
-=======
+}
+
+.profile-unfilled-field {
+  color: #808080;
+}
+
 ul.card-header-tabs a.nav-link {
   color: #495057;
 }
@@ -17033,6 +17037,5 @@ ul.card-header-tabs a.active.nav-link {
 
 .le-mat-t2 {
   width: 15%;
->>>>>>> created material sharing part
 }
 

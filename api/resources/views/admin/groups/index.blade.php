@@ -3,6 +3,7 @@
 
 @section('content')
     <div class="container">
+        @include('success')
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -20,6 +21,7 @@
                                 <th>E-mail</th>
                                 <th>Suspension status</th>
                                 <th>Verification status</th>
+                                <th>Group</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -31,6 +33,7 @@
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->is_blocked ? 'Suspended' : 'Active'}}</td>
                                     <td>{{empty($user->email_verfied_at) ? 'Verified' : 'Not verified'}}</td>
+                                    <td>{{$user->academicGroup()->first()->shorthand_code}}</td>
                                     <td>
                                         <a href="{{route('groups.edit', $user->id)}}" class="btn btn-outline-primary">
                                             Change group

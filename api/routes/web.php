@@ -16,25 +16,31 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/posts', 'PostController');
+Route::middleware(['isBlocked', 'isDisabled'])->group(function() {
+    Route::resource('/posts', 'PostController');
 
-Route::get('/material','MaterialController@index')->name('material');
+    Route::get('/material','MaterialController@index')->name('material');
 
-Route::resource('job-forms', 'JobFormController');
-Route::resource('filled-forms', 'FilledJobFormController')->except(['create']);
-Route::get('/job-forms/{job_form}/pdf', 'JobFormController@getPdf')->name('job-forms.pdf');
+    Route::resource('job-forms', 'JobFormController');
+    Route::resource('filled-forms', 'FilledJobFormController')->except(['create']);
+    Route::get('/job-forms/{job_form}/pdf', 'JobFormController@getPdf')->name('job-forms.pdf');
 
-Route::get('/user/{id}/profile', 'UserController@show')->name('user.profile');
-Route::get('/user/{id}/edit', 'UserController@edit')->name('user.edit');
-Route::get('/user/{id}/update', 'UserController@update')->name('user.update');
+    Route::get('/user/{id}/profile', 'UserController@show')->name('user.profile');
+    Route::get('/user/{id}/edit', 'UserController@edit')->name('user.edit');
+    Route::post('/user/{id}/update', 'UserController@update')->name('user.update');
 
-Route::get('/admin/roles', 'Admin\RoleController@index')->name('roles.index');
-Route::get('/admin/roles/{id}/edit', 'Admin\RoleController@edit')->name('roles.edit');
-Route::post('/admin/roles/{id}/block', 'Admin\RoleController@disable')->name('roles.block');
+    Route::get('/admin/roles', 'Admin\RoleController@index')->name('roles.index');
+    Route::get('/admin/roles/{user}/edit', 'Admin\RoleController@edit')->name('roles.edit');
+    Route::post('/admin/roles/{user}/block', 'Admin\RoleController@disable')->name('roles.block');
+    Route::post('/admin/roles/{user}/update', 'Admin\RoleController@update')->name('roles.update');
 
-Route::get('/admin/groups', 'Admin\GroupController@index')->name('groups.index');
-Route::get('/admin/groups/{id}/edit', 'Admin\GroupController@edit')->name('groups.edit');
-Route::get('/admin/groups/create', 'Admin\GroupController@create')->name('groups.create');
+    Route::get('/admin/groups', 'Admin\GroupController@index')->name('groups.index');
+    Route::get('/admin/groups/{user}/edit', 'Admin\GroupController@edit')->name('groups.edit');
+    Route::post('/admin/groups/{user}/update', 'Admin\GroupController@update')->name('groups.update');
+    Route::get('/admin/groups/create', 'Admin\GroupController@create')->name('groups.create');
+    Route::post('/admin/groups/store', 'Admin\GroupController@store')->name('groups.store');
 
-Route::get('user/settings', 'SettingsController@index')->name('settings.index');
-Route::post('user/disable', 'SettingsController@destroy')->name('settings.disable');
+    Route::get('user/settings', 'SettingsController@index')->name('settings.index');
+    Route::delete('user/disable', 'SettingsController@destroy')->name('settings.disable');
+
+});

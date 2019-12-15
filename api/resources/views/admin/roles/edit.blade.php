@@ -11,17 +11,16 @@
                         <label class="col-form-label">Admin</label>
                     </div>
                 </div>
-                <form method="POST" class="align-content-center">
+                <form method="POST" action="{{route('roles.update', ['user' => $user])}}"class="align-content-center">
                     @csrf
                     <div class="form-group row">
                         <label for="role" class="col-md-4 col-form-label text-md-right">New role</label>
 
                         <div class="col-md-6">
                             <select name="role">
-                                <option>Admin</option>
-                                <option>Student</option>
-                                <option>Lecturer</option>
-                                <option>Company delegate</option>
+                                @foreach($roles as $role)
+                                    <option value="{{$role->id}}">{{$role->name}}</option>
+                                @endforeach
                             </select>
                             @error('role')
                             <span class="invalid-feedback" role="alert">
