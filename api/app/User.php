@@ -86,12 +86,12 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $query->where('role_id', 2);
     }
 
-    public function scopeLecturers($query)
+    public function scopeDelegates($query)
     {
         return $query->where('role_id', 3);
     }
 
-    public function scopeDelegates($query)
+    public function scopeLecturers($query)
     {
         return $query->where('role_id', 4);
     }
