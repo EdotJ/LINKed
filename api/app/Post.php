@@ -10,7 +10,7 @@ class Post extends Model
     use Filterable;
     protected $table = 'posts';
     protected $fillable = [
-        'name', 'content', 'is_job'
+        'name', 'content', 'is_job', 'form_id', 'user_id'
     ];
 
     protected $guarded = [
@@ -20,4 +20,9 @@ class Post extends Model
     protected $casts = [
          'is_job' => 'boolean' 
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

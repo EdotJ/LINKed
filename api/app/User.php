@@ -43,10 +43,20 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         return $this->hasMany(JobForm::class);
     }
+    
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 
     public function isJobFormOwner($id)
     {
         return in_array($id, $this->jobForms()->pluck('id')->all());
+    }
+
+    public function isPostOwner($id)
+    {
+        return in_array($id, $this->posts()->pluck('id')->all());
     }
 
     public function forms()

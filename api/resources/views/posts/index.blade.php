@@ -27,8 +27,10 @@
             <button type="submit" class="btn btn-dark btn-block mb-2">Filter</button>
         </form>
     </div>
-    <ul class="list-group">
+    <ul class="list-group"> 
         @foreach ($posts as $post)
+        @auth
+        @if(auth()->user()->isPostOwner($post->id))
         <li class="list-group-item mt-2 d-flex justify-content-between align-items-center">
             <span class="w-50">
                 <div><b>{{$post->name}}</b></div>
@@ -39,6 +41,8 @@
                 <td><a href="{{route('posts.edit', $post->id)}}" class="btn btn-outline-secondary btn-sm">Edit</a></td>
             </span>   
         </li>
+        @endif
+        @endauth
         @endforeach
     </ul>
 </div>
