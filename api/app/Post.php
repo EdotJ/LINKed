@@ -10,7 +10,7 @@ class Post extends Model
     use Filterable;
     protected $table = 'posts';
     protected $fillable = [
-        'name', 'content', 'is_job', 'form_id', 'user_id'
+        'name', 'content', 'is_job', 'form_id', 'user_id', 'academic_group_id'
     ];
 
     protected $guarded = [

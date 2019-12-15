@@ -63,10 +63,13 @@ class PostController extends Controller
 
         if ($post->is_job){
             $post->form_id = $request->input('job_form');
-            $this -> sendEmail($post);
         }
+        
         $post->user_id = auth()->user()->id;
         $post->save();
+        if ($post->is_job){
+            $this -> sendEmail($post);
+        }
 
         return redirect()->route('posts.show', $post->id);
     }
@@ -106,6 +109,7 @@ class PostController extends Controller
         return view('posts.edit', [
             'post' =>  Post::find($id),
             'forms' => DB::table('job_forms')->get(),
+            'academic_groups' => DB::table('academic_groups')->get()
         ]);
     }
 
@@ -131,10 +135,18 @@ class PostController extends Controller
         $post->is_job = $request->input('job_form') ? 1 : 0;
         if ($post->is_job){
             $post->form_id = $request->input('job_form');
+        }
+
+        if ($request->input('academic_group')){
+            $post->academic_group_id = $request->input('academic_group');
+        }
+
+        $post->user_id = auth()->user()->id;
+       
+        $post->save();
+        if ($post->is_job){
             $this -> sendEmail($post);
         }
-        $post->user_id = auth()->user()->id;   
-        $post->save();
 
         return redirect()->route('posts.show', $post->id);
     }

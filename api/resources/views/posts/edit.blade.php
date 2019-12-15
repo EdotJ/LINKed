@@ -33,7 +33,7 @@
                         
                         <div>
                             {{Form::label('academic_group', "Add the Interest Group:", ["class" => 'h5 mt-3'])}}
-                            {{Form::select('academic_group', array(null => null, 'IFF' => 'IFF', 'MA' => 'MA'), 0, ["class" => 'form-control'])}}
+                            {{Form::select('academic_group', ['' => ''] + $academic_groups->pluck('shorthand_code', 'id')->toArray(), $post->academic_group_id, ["class" => 'form-control'])}}
                         </div>
                     </div>
                 </div>
