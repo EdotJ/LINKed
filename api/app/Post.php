@@ -2,17 +2,15 @@
 
 namespace App;
 
+use App\Filters\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
+    use Filterable;
+    protected $table = 'posts';
     protected $fillable = [
-        'name', 'content', 'is_job'
+        'name', 'content', 'is_job', 'form_id', 'user_id'
     ];
 
     protected $guarded = [
@@ -22,4 +20,9 @@ class Post extends Model
     protected $casts = [
          'is_job' => 'boolean' 
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
