@@ -66,12 +66,12 @@ class RoleController extends Controller
      */
     public function edit(User $user)
     {
-        if($user->hasRole("STD"))
+        if(!$user->hasRole("ADM"))
         {
             return view('admin.roles.edit', ['user' => $user, 'roles' => Role::all()]);
         }
         else
-            return redirect(route('admin.roles.index'))->withErrors("User is not a student");
+            return redirect(route('roles.index'))->withErrors("You cannot change administrator's role");
     }
 
     /**
@@ -95,6 +95,11 @@ class RoleController extends Controller
      */
     public function disable(User $user)
     {
+        if ($user->isBlocked()) {
+            $user->is_blocked = 0;
+            $user->save();
+            return redirect(route('roles.index'))->with('success', 'Successfully unblocked user ' . $user->name);
+        }
         $user->is_blocked = 1;
         $user->save();
         return redirect(route('roles.index'))->with('success', 'Successfully blocked user ' . $user->name);
