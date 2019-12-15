@@ -46,7 +46,6 @@ class GroupController extends Controller
         $group = new AcademicGroup;
         $group->shorthand_code = $request->shorthand;
         $group->save();
-        dd($group);
         return redirect(route('groups.index'))->with('success', "Added new group successfully");
     }
 
