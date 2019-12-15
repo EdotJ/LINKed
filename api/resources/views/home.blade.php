@@ -10,6 +10,7 @@
               <div class="card-header">Dashboard</div>
                   <ul class="list-group">
                       @foreach ($posts as $post)
+                      @if (!auth()->user() || $post->academic_group_id == auth()->user()->academic_group) 
                       <li class="list-group-item mt-2 d-flex justify-content-between align-items-center">
                           <span class="w-50">
                               <div><b>{{$post->name}}</b></div>
@@ -24,6 +25,7 @@
                           </span>
                           @endif
                       </li>
+                      @endif
                       @endforeach
                   </ul>
               </div>

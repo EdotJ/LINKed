@@ -64,10 +64,10 @@ class PostController extends Controller
         if ($post->is_job){
             $post->form_id = $request->input('job_form');
         }
-        
         $post->user_id = auth()->user()->id;
         $post->save();
-        if ($post->is_job){
+
+        if ($post->is_job && (auth()->user()->id == 2 || auth()->user()->id == 4)){
             $this -> sendEmail($post);
         }
 
@@ -140,11 +140,11 @@ class PostController extends Controller
         if ($request->input('academic_group')){
             $post->academic_group_id = $request->input('academic_group');
         }
-
-        $post->user_id = auth()->user()->id;
-       
+        
+        $post->user_id = auth()->user()->id;   
         $post->save();
-        if ($post->is_job){
+
+        if ($post->is_job && (auth()->user()->id == 2 || auth()->user()->id == 4)){
             $this -> sendEmail($post);
         }
 
