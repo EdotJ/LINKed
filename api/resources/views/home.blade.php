@@ -18,7 +18,7 @@
                             </span>
                             @if ($post->is_job == 1)
                             <span>
-                                <td><a href="{{route('posts.show', $post->id)}}"
+                                <td><a href="{{route('job-forms.show', $post->form_id)}}"
                                         class="btn btn-outline-primary btn-sm">Apply</a></td>
                             </span>
                             @endif

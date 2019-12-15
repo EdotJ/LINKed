@@ -29,7 +29,7 @@
                         {{Form::textarea('content', null, ["class" => 'form-control'])}}
 
                         {{Form::label('job_form', "Attach the Job Form:", ["class" => 'h5 mt-3'])}}
-                        {{Form::select('job_form', ['' => ''] + ($forms->pluck('name'))->toArray(), null,  array('class' =>'form-control'))}}
+                        {{Form::select('job_form', ['' => ''] + $forms->pluck('name', 'id')->toArray(), $post->form_id,  array('class' =>'form-control'))}}
                         
                         <div>
                             {{Form::label('academic_group', "Add the Interest Group:", ["class" => 'h5 mt-3'])}}
