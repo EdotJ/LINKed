@@ -25,21 +25,34 @@ ul.card-header-tabs a.active.nav-link
 .learning-material{
     table-layout: fixed;
     margin-top:1rem;
+    .material-table-hover:hover{
+        background-color: darken($color: #fff, $amount: 3);
+    }
     .le-mat1{
         width: 20%;
     }
     .le-mat2{
-        width: 18%;
+        width: 16%;
     }
     .le-mat3{
-        width: 21%;
+        width: 14%;
     }
     .le-mat4{
-        width: 18%;
+        width: 23%;
     }
     .le-mat5{
-        width: 23%;
+        width: 13%;
+    }    
+    .le-mat6{
+        width: 14%;
         text-align: right;
+    }
+    .le-mat7{
+        width: 7%;
+        text-align: right;
+    }
+    .le-mat8{
+        width: 7%;
     }
     .le-mat-c1{
         width: 30%;

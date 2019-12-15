@@ -15,11 +15,13 @@ class CreateLearningMaterialsTable extends Migration
     {
         Schema::create('learning_materials', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('title');
             $table->string('path');
             $table->unsignedBigInteger('user_id');
+            $table->double('size', 12, 2)->default(0);
             $table->timestamps();
-
+            $table->boolean('private')->default((0));
+        
             $table->foreign('user_id')->references('id')->on('users');
         });
 
