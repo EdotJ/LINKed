@@ -16,7 +16,7 @@ class CreateLearningMaterialTagTable extends Migration
         Schema::create('learning_material_tag', function (Blueprint $table) {
             $table->unsignedBigInteger('learning_material_id');
             $table->unsignedBigInteger('tag_id');
-
+            $table->bigIncrements('row_id')->unique();
             $table->foreign('learning_material_id')->references('id')->on('learning_materials');
             $table->foreign('tag_id')->references('id')->on('tags');
         });

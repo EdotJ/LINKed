@@ -41,5 +41,13 @@ Route::middleware(['isBlocked', 'isDisabled'])->group(function() {
         Route::post('/admin/groups/{user}/update', 'Admin\GroupController@update')->name('groups.update');
         Route::get('/admin/groups/create', 'Admin\GroupController@create')->name('groups.create');
         Route::post('/admin/groups/store', 'Admin\GroupController@store')->name('groups.store');
+
+        Route::get('/material', 'MaterialController@getMaterials')->name('material');
+        Route::get('/material/filter/', 'MaterialController@getMaterialsFilter')->name('materialfilter');
+        Route::get('/material/edit/{id}', 'MaterialController@editMaterial')->name('editmaterial');
+        Route::put('/material/edit/{id}', 'MaterialController@updateMaterial')->name('updatematerial');
+        Route::post('/uploadmaterial', 'MaterialController@uploadMaterial')->name('uploadmaterial');
+        Route::post('/downloadmaterial/{id}', 'MaterialController@downloadMaterial')->name('downloadmaterial');
+        Route::post('/deletematerial/{id}', 'MaterialController@deleteMaterial')->name('deletematerial');
     });
 });
