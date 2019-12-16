@@ -13,10 +13,8 @@ class Tag extends Model
 
     public function scopeName($query, $name)
     {
-        if ($name) {
-            return $query->where("name", "LIKE", "%$name%");
-        } else{
-          return $query;  
-        } 
+        if(!$name)
+            return $query;
+        return $query->where("name", "LIKE", "%$name%");
     }
 }

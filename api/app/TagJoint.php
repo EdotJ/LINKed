@@ -15,10 +15,8 @@ class TagJoint extends Model
 
     public function scopeMaterialId($query, $mat_id)
     {
-        if ($mat_id) {
-            return $query->where("learning_material_id", "LIKE", "%$mat_id%");
-        } else{
-          return $query;  
-        } 
+        if(!$mat_id)
+            return $query;
+        return $query->where("learning_material_id", "LIKE", "%$mat_id%");
     }
 }

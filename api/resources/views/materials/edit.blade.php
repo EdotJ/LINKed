@@ -20,7 +20,7 @@
                         </tr>
                         <tr>
                             <td><label >Tags</label></td>
-                            <td><textarea rows="4" cols="50" name="tags">{{ $temp }}</textarea></td>
+                            <td><textarea rows="4" cols="40" name="tags">{{ $temp }}</textarea></td>
                         </tr>
                         <tr>
                             <td><input class="btn btn-primary" type="submit" value="Išsaugoti"></td>

@@ -76,7 +76,7 @@ class MaterialController extends Controller
     }
     public function deleteMaterial(Request $request, $id)
     {
-        $material = Material::find($id);
+        $material = Material::findOrFail($id);
         if (Storage::disk('s3')->exists($material->path)){
             if(Storage::disk('s3')->delete($material->path)){
                 $tagJoints = TagJoint::all();
@@ -91,7 +91,7 @@ class MaterialController extends Controller
         }
     }
     public function downloadMaterial(Request $request, $id){
-        $material = Material::find($id);
+        $material = Material::findOrFail($id);
         if (Storage::disk('s3')->exists($material->path)){
             $size = Storage::disk('s3')->size($material->path);
             $fileType = pathinfo($material->path, PATHINFO_EXTENSION);
@@ -112,12 +112,12 @@ class MaterialController extends Controller
 
     public function editMaterial(Request $request, $id)
     {
-        $material = Material::find($id);
+        $material = Material::findOrFail($id);
         $tagJoints = TagJoint::all();
         $temp = "";
         foreach($tagJoints as $tagJoint){
             if($tagJoint->learning_material_id == $id){
-                $tag = Tag::find($tagJoint->tag_id);
+                $tag = Tag::findOrFail($tagJoint->tag_id);
                 $temp = $temp . $tag->name;
                 $temp = $temp . " ";
             }
@@ -131,9 +131,9 @@ class MaterialController extends Controller
         $request->validate([
             'name'=>'required'
         ]);
-        $material = Material::find($id);
+        $material = Material::findOrFail($id);
         $material->title = $request->get('name');
-        if ($request->get('private') == null)
+        if ($request->get('private') === null)
             $material->private = 0;
         else
             $material->private = 1;
