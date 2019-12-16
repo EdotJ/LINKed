@@ -4,6 +4,7 @@
 @section('content')
 <div class="container">
     @include('success')
+    @include('errors')
     <div class="row">
         <div class="col">
             <div class="card">
@@ -36,7 +37,7 @@
                                             Change role
                                         </a>
                                         <button type="submit" class="btn btn-outline-danger">
-                                            Block user
+                                            {{$user->isBlocked() ? "Unblock user" : "Block user"}}
                                         </button>
                                     </form>
                                 </td>

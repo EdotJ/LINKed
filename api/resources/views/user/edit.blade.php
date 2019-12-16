@@ -19,7 +19,7 @@
                     @component('user.partials.profile_field')
                         @slot('title') Phone number @endslot
                         @slot('type') tel @endslot
-                        number
+                        phone_number
                     @endcomponent
                     @component('user.partials.profile_field')
                         @slot('title') Birthday date @endslot
@@ -64,8 +64,8 @@
                         <div class="col-md-6">
                             <textarea id="description" type="text"
                                    class="form-control @error('description') is-invalid @enderror"
-                                   name="description" value="{{ old('description') }}"
-                                      autocomplete="description" rows="5"> </textarea>
+                                   name="description"
+                                      autocomplete="description" rows="5">{{ empty(old('description')) ? $user->description : old('description') }}</textarea>
 
                             @error('description')
                             <span class="invalid-feedback" role="alert">

@@ -45,10 +45,20 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         return $this->hasMany(JobForm::class);
     }
+    
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 
     public function isJobFormOwner($id)
     {
         return in_array($id, $this->jobForms()->pluck('id')->all());
+    }
+  
+    public function isPostOwner($id)
+    {
+        return in_array($id, $this->posts()->pluck('id')->all());
     }
 
     public function hasRole(String $role)
@@ -76,12 +86,12 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $query->where('role_id', 2);
     }
 
-    public function scopeLecturers($query)
+    public function scopeDelegates($query)
     {
         return $query->where('role_id', 3);
     }
 
-    public function scopeDelegates($query)
+    public function scopeLecturers($query)
     {
         return $query->where('role_id', 4);
     }
@@ -94,6 +104,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function academicGroup(): BelongsTo
     {
         return $this->belongsTo(AcademicGroup::class, 'academic_group');
+
     }
 
     public function forms()

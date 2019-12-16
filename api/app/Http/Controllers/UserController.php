@@ -13,7 +13,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth']);
     }
 
     /**
@@ -86,7 +86,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $user->headline = $request->headline;
-        $user->phone_number = $request->number;
+        $user->phone_number = $request->phone_number;
         $user->birthday = $request->birthday;
         $user->interests = $request->interests;
         if ($user->hasRole('STD')) {
@@ -99,6 +99,7 @@ class UserController extends Controller
             }
             $user->title = $request->title;
         }
+        $user->description = $request->description;
         $user->save();
         return redirect(route('user.profile', ['id' => Auth::user()->id]))->with('success', "Successfully updated your profile");
     }

@@ -3,19 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotifyJobPost;
 use App\Post;
+use App\JobForm;
+use App\User;
+use App\Filters\PostsFilter;
+use Illuminate\Support\Facades\DB;
+
 
 class PostController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PostsFilter $filters)
     {
         return view('posts.index', [
-            'posts' => Post::all(),
+            'posts' => Post::filter($filters)->get(),
          ]);
     }
 
@@ -26,7 +34,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create',[
+            'forms' => DB::table('job_forms')->get(),
+        ]);
     }
 
     /**
@@ -46,12 +56,33 @@ class PostController extends Controller
         
         //store in the db
         $post = new Post;
+
         $post->name = $request->name;
         $post->content = $request->content;
         $post->is_job = $request->input('job_form') ? 1 : 0;
+
+        if ($post->is_job){
+            $post->form_id = $request->input('job_form');
+        }
+        $post->user_id = auth()->user()->id;
         $post->save();
 
+        if ($post->is_job && (auth()->user()->id == 2 || auth()->user()->id == 4)){
+            $this -> sendEmail($post);
+        }
+
         return redirect()->route('posts.show', $post->id);
+    }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function sendEmail($post){
+        $emails = User::pluck('email')->toArray();
+        foreach ($emails as &$value) {
+            Mail::to($value)->send(new NotifyJobPost($post));
+        }
     }
 
     /**
@@ -77,6 +108,8 @@ class PostController extends Controller
     {
         return view('posts.edit', [
             'post' =>  Post::find($id),
+            'forms' => DB::table('job_forms')->get(),
+            'academic_groups' => DB::table('academic_groups')->get()
         ]);
     }
 
@@ -100,8 +133,20 @@ class PostController extends Controller
         $post->name = $request->input('name');
         $post->content = $request->input('content');
         $post->is_job = $request->input('job_form') ? 1 : 0;
-       
+        if ($post->is_job){
+            $post->form_id = $request->input('job_form');
+        }
+
+        if ($request->input('academic_group')){
+            $post->academic_group_id = $request->input('academic_group');
+        }
+        
+        $post->user_id = auth()->user()->id;   
         $post->save();
+
+        if ($post->is_job && (auth()->user()->id == 2 || auth()->user()->id == 4)){
+            $this -> sendEmail($post);
+        }
 
         return redirect()->route('posts.show', $post->id);
     }

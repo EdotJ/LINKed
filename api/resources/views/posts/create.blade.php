@@ -19,7 +19,7 @@
                     {{Form::textarea('content', null, array('class' => 'form-control', 'style' => 'margin-bottom: 10px; margin-left: 10px;'))}}
 
                     {{Form::label('job_form', "Attach the Job Form:", array('style' => 'margin-left: 10px;'))}}
-                    {{Form::select('job_form', array(null => null, 'Job1' => 'Job1', 'Job2' => 'Job2'), null,  array('class' =>'form-control', 'style' => 'margin-left: 10px;'))}}
+                    {{Form::select('job_form', ['' => ''] + $forms->pluck('name', 'id')->toArray(), null,  array('class' =>'form-control', 'style' => 'margin-bottom: 10px; margin-left: 10px;'))}}
                     <div>
                         {{Form::submit("Create", array('class' =>'btn btn-primary', 'style' => 'margin-top: 10px; margin-left: 10px;'))}}
                     </div>
