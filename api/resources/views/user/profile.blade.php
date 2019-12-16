@@ -57,7 +57,9 @@
                                         @if($user->hasRole('STD'))
                                             @component('user.partials.profile_column')
                                                 @slot('label') Academic group @endslot
-                                                {{$user->academicGroup()->first()->shorthand_code}}
+                                                @if($user->academicGroup()->first() != null)
+                                                    {{$user->academicGroup()->first()->shorthand_code}}
+                                                @endif
                                             @endcomponent
 
                                             @component('user.partials.profile_column')
